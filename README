@@ -22,7 +22,7 @@ Configuration section cheat list:
 -acid_dir   = The path to your ACID source directory
 -acid_branch= witch acid branch you want to follow, ex: classic, tbc, wotlk
 -server_dir = The path to your Mangos server directory
--bin        = Set this to which architecture you want to build Mangos and ScriptDev2, ex: x64, x32
+-bin        = Set this to which architecture you want to build Mangos and ScriptDev2, ex: x64, win32
 -vsversion  = Set this the version of VStudio you are using, ex:vc80, vc90, vc100
 #The script try to guess proper setting for the fallowing:
 -msbuild    = This part try to guess the location of msbuild.exe. Adapt to your need if needed.

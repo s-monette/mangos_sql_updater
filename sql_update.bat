@@ -12,11 +12,11 @@ SET sd2dir=%mangos_dir%\src\bindings\ScriptDev2
 SET acid_dir=ACID
 set acid_branch=wotlk
 SET server_dir=server
-SET bin=x64
+SET bin=win32
 SET vsversion=vc100
 ::If you got error about git or msbuil.exe not recognized adjust the fallowing, otherwise default should work.
 SET gitdir=%ProgramFiles(x86)%\Git\cmd
- IF EXIST %ProgramFiles% SET gitdir=%ProgramFiles%\Git\cmd
+ IF EXIST "%ProgramFiles%" SET gitdir=%ProgramFiles%\Git\cmd
 SET msbuild=%WinDir%\Microsoft.NET\Framework\v2.0.50727
  IF EXIST %WinDir%\Microsoft.NET\Framework\v4.0.30319 SET msbuild=%WinDir%\Microsoft.NET\Framework\v4.0.30319
 ::----- Configuration section end ------
@@ -60,7 +60,7 @@ GOTO :EOF
 :show_version
  CALL :deco_frame "%1 DB version are:"
  SET count=1
- FOR /F "tokens=2,3 delims=_" %%A IN ('mysql -u %sql_user% -p%sql_pass% -s ^< sql_update.sql ^| FIND "required_"') DO (CALL :get_db_version %%A_%%B)  
+ FOR /F "tokens=2,3 delims=_" %%A IN ('mysql -u %sql_user% -p%sql_pass% -s ^< sql_update.sql ^| FIND "required_"') DO (CALL :get_db_version %%A_%%B)
  ECHO -%char_db%    = %charv%
  ECHO -%mangos_db%        = %mangosv%
  ECHO -%realmd_db%        = %realmdv%
@@ -76,10 +76,10 @@ GOTO :EOF
 
 :update_db
  CALL :deco_frame "Updating database"
- FOR /F %%A IN ('dir /B %mangos_dir%\sql\updates\*characters*') DO IF /i %%A GTR %charv%   mysql -u %sql_user% -p%sql_pass% %char_db%   < %mangos_dir%\sql\updates\%%A 2 > NUL
- FOR /F %%A IN ('dir /B %mangos_dir%\sql\updates\*mangos*')     DO IF /i %%A GTR %mangosv% mysql -u %sql_user% -p%sql_pass% %mangos_db% < %mangos_dir%\sql\updates\%%A 2 > NUL
- FOR /F %%A IN ('dir /B %mangos_dir%\sql\updates\*realmd*')     DO IF /i %%A GTR %realmdv% mysql -u %sql_user% -p%sql_pass% %realmd_db% < %mangos_dir%\sql\updates\%%A 2 > NUL
- FOR /F %%A IN ('dir /B/s %acid_dir%\*.sql ^| FIND "%acid_branch%"') DO SET acid_sql=%%A
+ FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*characters*') DO IF /i %%A GTR %charv%   mysql -u %sql_user% -p%sql_pass% %char_db%   < %mangos_dir%\sql\updates\%%A 2 > NUL
+ FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*mangos*')     DO IF /i %%A GTR %mangosv% mysql -u %sql_user% -p%sql_pass% %mangos_db% < %mangos_dir%\sql\updates\%%A 2 > NUL
+ FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*realmd*')     DO IF /i %%A GTR %realmdv% mysql -u %sql_user% -p%sql_pass% %realmd_db% < %mangos_dir%\sql\updates\%%A 2 > NUL
+ FOR /F %%A IN ('DIR /B/s %acid_dir%\*.sql ^| FIND "%acid_branch%"') DO SET acid_sql=%%A
  mysql -u %sql_user% -p%sql_pass% %mangos_db% < %sd2dir%\sql\mangos_scriptname_full.sql
  mysql -u %sql_user% -p%sql_pass% %sd2_db%    < %sd2dir%\sql\scriptdev2_script_full.sql
  mysql -u %sql_user% -p%sql_pass% %mangos_db% < %acid_sql%
@@ -95,8 +95,8 @@ GOTO :EOF
 
 :copy_bin
  CALL :deco_frame "Copying .exe and .dll to server."
- copy %mangos_dir%\bin\%bin%\*.exe %server_dir% > NUL
- copy %mangos_dir%\bin\%bin%\*.dll %server_dir% > NUL
+ COPY %mangos_dir%\bin\%bin%_Release\*.exe %server_dir% > NUL
+ COPY %mangos_dir%\bin\%bin%_Release\*.dll %server_dir% > NUL
  GOTO :EOF
 
 :deco_frame
