@@ -27,7 +27,7 @@ Configuration section cheat list:
 #The script try to guess proper setting for the fallowing:
 -msbuild    = This part try to guess the location of msbuild.exe. Adapt to your need if needed.
 -gitdir     = This part try to guess the location of the git path. Adapt to your need if needed.
- 
+
 What the script does:
 -Pull from Mangos GIT repository.
 -Update SD2 and ACID SVN repository.
@@ -62,5 +62,3 @@ Credit:
 -This script was made by me, akum(Simon Monette), using notepad++(mostly for the fancy bash color).
  http://notepad-plus-plus.org/
 ##################################################################################################################
-
-
