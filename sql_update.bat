@@ -29,7 +29,7 @@ CALL :update_db
 CALL :show_version Updated
 CALL :start_compiling
 CALL :copy_bin
-ECHO All done !
+CALL :deco_frame "All done !"
 PAUSE
 GOTO :EOF
 ::----- Main end ----------------
@@ -76,10 +76,10 @@ GOTO :EOF
 
 :update_db
  CALL :deco_frame "Updating database"
- FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*characters*') DO IF /i %%A GTR %charv%   mysql -u %sql_user% -p%sql_pass% %char_db%   < %mangos_dir%\sql\updates\%%A 2 > NUL
- FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*mangos*')     DO IF /i %%A GTR %mangosv% mysql -u %sql_user% -p%sql_pass% %mangos_db% < %mangos_dir%\sql\updates\%%A 2 > NUL
- FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*realmd*')     DO IF /i %%A GTR %realmdv% mysql -u %sql_user% -p%sql_pass% %realmd_db% < %mangos_dir%\sql\updates\%%A 2 > NUL
- FOR /F %%A IN ('DIR /B/s %acid_dir%\*.sql ^| FIND "%acid_branch%"') DO SET acid_sql=%%A
+ FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*characters*') DO IF /i %%A GTR %charv%   mysql -u %sql_user% -p%sql_pass% %char_db%   < %mangos_dir%\sql\updates\%%A 2>NUL
+ FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*mangos*')     DO IF /i %%A GTR %mangosv% mysql -u %sql_user% -p%sql_pass% %mangos_db% < %mangos_dir%\sql\updates\%%A 2>NUL
+ FOR /F %%A IN ('DIR /B %mangos_dir%\sql\updates\*realmd*')     DO IF /i %%A GTR %realmdv% mysql -u %sql_user% -p%sql_pass% %realmd_db% < %mangos_dir%\sql\updates\%%A 2>NUL
+ FOR /F "tokens=1 delims=" %%A IN ('DIR /B/s %acid_dir%\*.sql ^| FIND "%acid_branch%"') DO SET acid_sql="%%A"
  mysql -u %sql_user% -p%sql_pass% %mangos_db% < %sd2dir%\sql\mangos_scriptname_full.sql
  mysql -u %sql_user% -p%sql_pass% %sd2_db%    < %sd2dir%\sql\scriptdev2_script_full.sql
  mysql -u %sql_user% -p%sql_pass% %mangos_db% < %acid_sql%
