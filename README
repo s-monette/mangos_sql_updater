@@ -1,0 +1,66 @@
+##################################################################################################################
+This batch file automate the process of fetching GIT/SVN source, updating SQL database and building the different
+ components of a Mangos server such as :Mangos, ScriptDev2 and ACID.
+
+What the user have to do:
+-Edit the configuration section of the file "sql_update.bat" with user information’s.
+ (SQL log-in, DB names and folders location)
+
+Recommend directory hierarchy:
+-Inside a folder, have the fallowing: Mangos source, your server directory, ACID folder and the sql_update.bat.
+
+Configuration section cheat list:
+# All defaults values are set for a standard installed of Mangos with VS2010 on a x64 system.
+-sql_user   = Your SQL server account name
+-sql_pass   = Your SQL server password
+-mangos_db  = The name of you world database
+-char_db    = The name of you characters database
+-realmd_db  = The name of your realmd database
+-sd2_db     = The name of your ScriptDev2 database
+-mangos_dir = The path to your mangos source directory
+-sd2dir     = The path to your ScriptDev2 source directory
+-acid_dir   = The path to your ACID source directory
+-acid_branch= witch acid branch you want to follow, ex: classic, tbc, wotlk
+-server_dir = The path to your Mangos server directory
+-bin        = Set this to which architecture you want to build Mangos and ScriptDev2, ex: x64, x32
+-vsversion  = Set this the version of VStudio you are using, ex:vc80, vc90, vc100
+#The script try to guess proper setting for the fallowing:
+-msbuild    = This part try to guess the location of msbuild.exe. Adapt to your need if needed.
+-gitdir     = This part try to guess the location of the git path. Adapt to your need if needed.
+ 
+What the script does:
+-Pull from Mangos GIT repository.
+-Update SD2 and ACID SVN repository.
+-Generate a file named sql_update.sql with the user DB information’s.
+-Query the generated SQL file to get user DB versions.
+-Output to screen current DB version.
+-Scan Mangos SQL directory against DB versions and apply needed patch.
+-Scriptdev2 and ACID SQL patch are then applied.
+-Output to screen the new version in DB.
+-Start to build Mangos and SD2.
+-Copy the new *.exe and *.dll to the server folder.
+
+What it doesn’t do:
+-Fetch and apply update for custom world DB like; UDB, YTDB, PSMDB & etc.
+
+TO DO list:
+-Clean/simplified/remove static name as much as possible.
+-Make it to more flexible.
+-Rewrite the README so it can be read in a less chaotic way.
+-And of course fix weird 'features' that user will find.
+
+Dependency(Or recommended setup):
+GIT client :
+- Any Windows based GIT client should do, I use msysgit from http://code.google.com/p/msysgit/
+ SVN client :
+- Any CLI SVN client should do, I use SlikSVN from http://www.sliksvn.com/en/download
+- I don't support ToirtoiseSVN, I know some people like to use it(including me) but it doesn't have proper
+ CLI support and it was a mess to automate with all the GUI pop-up. Still, you can install it and use it in
+ parallel with the CLI SVN client of your choice ... it's what I do.
+
+Credit:
+-This script was made by me, akum(Simon Monette), using notepad++(mostly for the fancy bash color).
+ http://notepad-plus-plus.org/
+##################################################################################################################
+
+
