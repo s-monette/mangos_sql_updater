@@ -12,11 +12,11 @@ SET sd2dir=%mangos_dir%\src\bindings\ScriptDev2
 SET acid_dir=ACID
 set acid_branch=wotlk
 SET server_dir=server
-SET bin=win32
+SET bin=x64
 SET vsversion=vc100
 ::If you got error about git or msbuil.exe not recognized adjust the fallowing, otherwise default should work.
-SET gitdir=%ProgramFiles(x86)%\Git\cmd
- IF EXIST "%ProgramFiles%" SET gitdir=%ProgramFiles%\Git\cmd
+SET gitdir=%ProgramFiles%\Git\cmd
+ IF EXIST "%ProgramFiles(x86)%\Git\cmd" SET gitdir="%ProgramFiles(x86)%\Git\cmd
 SET msbuild=%WinDir%\Microsoft.NET\Framework\v2.0.50727
  IF EXIST %WinDir%\Microsoft.NET\Framework\v4.0.30319 SET msbuild=%WinDir%\Microsoft.NET\Framework\v4.0.30319
 ::----- Configuration section end ------
